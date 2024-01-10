@@ -1,0 +1,48 @@
+{
+  "notes": [
+    {
+      "title": "Meeting Notes",
+      "id": 483,
+      "description": "Meeting with team members help! i need somoeneeeee!i need somoeneeeee ",
+      "createDate": "2023-07-18T08:24:13.314Z",
+      "tags": ["personal"],
+      "favorite": true
+    },
+    {
+      "title": "To-Do List",
+      "id": 742,
+      "description": "Tasks for the day...",
+      "createDate": "2022-11-28T12:09:33.890Z",
+      "lastEditDate": "2023-04-17T18:37:09.521Z",
+      "tags": ["work"],
+      "favorite": false
+    },
+    {
+      "title": "Ideas",
+      "id": 291,
+      "description": "Brainstorming session...",
+      "createDate": "2022-04-09T09:57:41.672Z",
+      "lastEditDate": "2023-01-22T05:19:37.802Z",
+      "tags": ["important"],
+      "favorite": true
+    },
+    {
+      "title": "To-Do List",
+      "id": 579,
+      "description": "Tasks for the day...",
+      "createDate": "2022-10-15T14:30:22.111Z",
+      "lastEditDate": "2023-02-28T21:08:45.998Z",
+      "tags": ["urgent"],
+      "favorite": true
+    },
+    {
+      "title": "Meeting Notes",
+      "id": 126,
+      "description": "Meeting with team members...",
+      "createDate": "2023-02-07T17:12:50.015Z",
+      "lastEditDate": "2023-08-14T02:53:29.420Z",
+      "tags": ["work"],
+      "favorite": false
+    }
+  ]
+}
