@@ -1,4 +1,4 @@
-import {
+/* import {
   Menubar,
   MenubarCheckboxItem,
   MenubarContent,
@@ -30,5 +30,23 @@ export default function NoteMenu() {
         </Button>
       </MenubarMenu>
     </Menubar>
+    
+  );
+}
+ */
+
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { DrawingPinIcon, GearIcon } from "@radix-ui/react-icons";
+
+export default function NodeMenu() {
+  return (
+    <ToggleGroup size="xsm" type="multiple">
+      <ToggleGroupItem value="bold" aria-label="Toggle pinned note">
+        <DrawingPinIcon />
+      </ToggleGroupItem>
+      <ToggleGroupItem value="italic" aria-label="More options">
+        <GearIcon />
+      </ToggleGroupItem>
+    </ToggleGroup>
   );
 }
