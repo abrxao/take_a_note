@@ -7,6 +7,7 @@ import ModeToggle from "@/components/ModeToggleButton";
 import { QueryClientProvider } from "react-query";
 import { queryClient } from "@/lib/queryClient";
 import Container from "@/components/Container";
+import NewNoteDrawer from "@/components/NewNoteDrawer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,13 +31,6 @@ export default function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            <header>
-              <Container className="border-b border-zinc-300 dark:border-zinc-600 flex justify-between w-full">
-                <h1 className="text-2xl font-bold">Take a note</h1>
-
-                <ModeToggle />
-              </Container>
-            </header>
             {children}
           </ThemeProvider>
         </QueryClientProvider>
