@@ -16,9 +16,9 @@ export default function NoteCard({
   tags,
 }: NoteProps): ReactNode {
   return (
-    <div className="dark:bg-zinc-800 min-w-56 max-w-xs dark:border-zinc-700 dark:hover:bg-zinc-900 border border-zinc-300 px-4 py-2 rounded-lg">
+    <div className="dark:bg-zinc-800 min-w-56 max-w-xs dark:border-zinc-700 dark:hover:bg-zinc-900 border border-zinc-300 px-4 py-2 rounded-lg grow">
       <h4 className="font-bold">{title}</h4>
-      <Separator className="my-1" />
+      <Separator className="my-2" />
       <div className="flex items-center space-x-2">
         <p className="text-sm font-medium leading-none">{description}</p>
       </div>
