@@ -1,52 +1,52 @@
-/* import {
-  Menubar,
-  MenubarCheckboxItem,
-  MenubarContent,
-  MenubarItem,
-  MenubarMenu,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarSeparator,
-  MenubarShortcut,
-  MenubarSub,
-  MenubarSubContent,
-  MenubarSubTrigger,
-  MenubarTrigger,
-} from "@/components/ui/menubar";
-import { DrawingPinIcon, GearIcon } from "@radix-ui/react-icons";
-import { Button } from "../ui/button";
+"use client";
+import { toast } from "sonner";
+import { PinIcon, X } from "lucide-react";
+import useUserDataState from "@/stores/userDataStore";
+import NoteProps from "@/types/note";
+import { DrawingPinFilledIcon, DrawingPinIcon } from "@radix-ui/react-icons";
 
-export default function NoteMenu() {
-  return (
-    <Menubar className="p-0 py-0 bg-transparent dark:bg-transparent outline-none border-none dark:border-none">
-      <MenubarMenu>
-        <Button variant="ghost" size={"xsm"}>
-          <DrawingPinIcon />
-        </Button>
-      </MenubarMenu>
-      <MenubarMenu>
-        <Button variant="ghost" size={"xsm"}>
-          <GearIcon />
-        </Button>
-      </MenubarMenu>
-    </Menubar>
-    
-  );
+interface NoteMenuProps {
+  note: NoteProps;
 }
- */
 
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { DrawingPinIcon, GearIcon } from "@radix-ui/react-icons";
-
-export default function NodeMenu() {
+export default function NoteMenu({ note }: NoteMenuProps) {
+  const { removeNote, undoRemove, togglePinned } = useUserDataState();
   return (
-    <ToggleGroup size="xsm" type="multiple">
-      <ToggleGroupItem value="bold" aria-label="Toggle pinned note">
-        <DrawingPinIcon />
-      </ToggleGroupItem>
-      <ToggleGroupItem value="italic" aria-label="More options">
-        <GearIcon />
-      </ToggleGroupItem>
-    </ToggleGroup>
+    <div className="flex gap-1">
+      <button
+        className="p-1 active:scale-8 dark:bg-zinc-700 rounded-md hover:text-red-400"
+        aria-label="Delete note"
+        type="button"
+        onClick={() => {
+          if (note) {
+            removeNote(note);
+            toast("Note has been deleted", {
+              description: `Click on 'undo' to get back "${note.title}" note`,
+              action: {
+                label: "undo",
+                onClick: () => note.id && undoRemove(note.id),
+              },
+            });
+          } else {
+            console.error("Note without id");
+          }
+        }}
+      >
+        <X size={14} />
+      </button>
+      <button
+        data-value={note.favorite ? "checked" : ""}
+        className="p-1 active:scale-8 dark:bg-zinc-700 dark:data-[value=checked]:bg-emerald-600 text-sm  rounded-md hover:text-slate-400"
+        aria-label="Toggle favorite"
+        type="button"
+        onClick={() => {
+          if (note) {
+            togglePinned(note);
+          }
+        }}
+      >
+        {note?.favorite ? <DrawingPinFilledIcon /> : <DrawingPinIcon />}
+      </button>
+    </div>
   );
 }
