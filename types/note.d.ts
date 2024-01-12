@@ -1,11 +1,11 @@
 import { UUID } from "crypto";
 
 export default interface NoteProps {
+  id?: string;
   title: string;
-  id: number;
   description?: string;
   createDate: Date;
   lastEditDate?: Date;
-  tags?: [string] | [];
-  favorite?: boolean;
+  tags?: string[] | [string] | [];
+  favorite: boolean;
 }
