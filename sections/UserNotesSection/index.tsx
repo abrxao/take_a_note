@@ -48,7 +48,7 @@ export default function UserNotesSection() {
                     Clear tags <X className="pl-2" size={14} />
                   </Button>
                 </div>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-2 items-start">
                   {userNotes.map((elem) => {
                     if (elem.tags?.length) {
                       for (const tag in elem.tags) {
@@ -70,7 +70,7 @@ export default function UserNotesSection() {
                 {hasFavorite && (
                   <div>
                     <p>favorites</p>
-                    <div className="flex flex-wrap gap-2 items-center">
+                    <div className="flex flex-wrap gap-2 items-start">
                       {userNotes.map((elem) => {
                         if (elem.favorite) {
                           return (
@@ -86,7 +86,7 @@ export default function UserNotesSection() {
                 )}
                 <div className="mt-4">
                   {hasFavorite && hasNormalNote && <p>others notes</p>}
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2 items-start">
                     {userNotes.map((elem) => {
                       if (!elem.favorite) {
                         return (
