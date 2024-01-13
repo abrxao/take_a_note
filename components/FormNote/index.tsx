@@ -11,13 +11,14 @@ import { useState } from "react";
 import TagsArea from "./TagsArea";
 import AddTagsInput from "./AddTagsInput";
 import useUserDataState from "@/stores/userDataStore";
-import { X } from "lucide-react";
-import axios from "axios";
+import { AlertTriangle, X } from "lucide-react";
 import NoteProps from "@/types/note";
+import useNoteDrawerState from "@/stores/noteModalStore";
+import { toast } from "sonner";
 
 const createNoteSchema = z.object({
-  title: z.string().min(1, "Coloque um título."),
-  description: z.string().min(1, "Coloque uma descrição."),
+  title: z.string().min(1, "Input a title for you note"),
+  description: z.string(),
 });
 
 type CreateLoginData = z.infer<typeof createNoteSchema>;
@@ -33,8 +34,9 @@ export default function ProfileForm({
   } = useForm<CreateLoginData>({
     resolver: zodResolver(createNoteSchema),
   });
-  const { userTags, addNoteOnStore } = useUserDataState();
-  const [tags, setTags] = useState<string[]>([]);
+  const { userTags, addNoteOnStore, editNoteOnStore } = useUserDataState();
+  const { editNote, clearEditNote, setIsDrawerNoteOpen } = useNoteDrawerState();
+  const [tags, setTags] = useState<string[]>(editNote?.tags ?? []);
   const [currentTag, setCurrentTag] = useState({
     value: "",
     error: "",
@@ -42,21 +44,39 @@ export default function ProfileForm({
 
   async function addUserNote(data: CreateLoginData) {
     const { title, description } = data;
-    const dateNow = new Date();
 
     try {
-      const postJson: NoteProps = {
+      var postJson: NoteProps = {
         title,
         description,
         tags,
-        createDate: dateNow,
-        favorite: true,
+        createDate: new Date(),
+        favorite: false,
       };
+      if (editNote != null) {
+        postJson = {
+          ...postJson,
+          favorite: editNote.favorite,
+          id: editNote.id,
+          lastEditDate: new Date(),
+        };
+        editNoteOnStore(postJson);
+      } else {
+        addNoteOnStore(postJson);
+      }
 
-      addNoteOnStore(postJson);
       reset();
       setTags([]);
-    } catch (e) {}
+    } catch (e) {
+    } finally {
+      if (editNote != null) {
+        toast("Note edited");
+        clearEditNote();
+      } else {
+        toast("Note created");
+      }
+      setIsDrawerNoteOpen(false);
+    }
   }
 
   return (
@@ -65,21 +85,30 @@ export default function ProfileForm({
       className={cn("grid items-start gap-4", className)}
     >
       <div className="grid gap-2">
-        <Label htmlFor="title">Title</Label>
+        <Label htmlFor="title">Title *</Label>
         <Input
+          aria-label="title input - required"
+          defaultValue={editNote?.title ?? ""}
           type="text"
           id="title"
           data-testid="title-input-note"
           register={register("title")}
         />
+        {errors.title?.message != undefined && (
+          <p className="text-sm dark:text-red-400 flex gap-1 items-center text-red-600">
+            {errors.title.message} <AlertTriangle size={14} />
+          </p>
+        )}
       </div>
       <div className="grid gap-2">
-        <Label htmlFor="description">Description</Label>
+        <Label htmlFor="description">Description *</Label>
         <Textarea
           id="description"
+          defaultValue={editNote?.description ?? ""}
           data-testid="description-input-note"
           register={register("description")}
         />
+        {errors.description?.message}
       </div>
       <AddTagsInput
         tags={userTags.filter((userTag) => !tags.includes(userTag))}
@@ -121,7 +150,6 @@ export default function ProfileForm({
           /* @ts-ignore */
           const aux = tags.filter((tag) => tag != e.target.value);
           setTags(aux);
-          console.log(tags);
         }}
       />
       <Button>Save changes</Button>

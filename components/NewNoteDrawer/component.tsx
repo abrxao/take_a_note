@@ -22,28 +22,23 @@ import {
 } from "@/components/ui/drawer";
 import { PlusCircledIcon } from "@radix-ui/react-icons";
 import useNoteDrawerState from "@/stores/noteModalStore";
-import ProfileForm from "../FormNote";
+import FormNote from "../FormNote";
 
 export default function NewNoteDrawer_() {
-  const { isDrawerNoteOpen, setIsDrawerNoteOpen } = useNoteDrawerState();
+  const { isDrawerNoteOpen, setIsDrawerNoteOpen, clearEditNote } =
+    useNoteDrawerState();
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   if (isDesktop) {
     return (
       <Dialog open={isDrawerNoteOpen} onOpenChange={setIsDrawerNoteOpen}>
-        <DialogTrigger asChild>
-          <Button variant="secondary">
+        <DialogTrigger onClick={() => clearEditNote()} asChild>
+          <Button variant="secondary" onClick={() => {}}>
             New note <PlusCircledIcon className="ml-1" />
           </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
-            <DialogDescription>
-              Make changes to your profile here. Click save when you're done.
-            </DialogDescription>
-          </DialogHeader>
-          <ProfileForm />
+          <FormNote />
         </DialogContent>
       </Dialog>
     );
@@ -57,13 +52,7 @@ export default function NewNoteDrawer_() {
         </Button>
       </DrawerTrigger>
       <DrawerContent>
-        <DrawerHeader className="text-left">
-          <DrawerTitle>Edit profile</DrawerTitle>
-          <DrawerDescription>
-            Make changes to your profile here. Click save when you're done.
-          </DrawerDescription>
-        </DrawerHeader>
-        <ProfileForm className="px-4" />
+        <FormNote className="px-4" />
         <DrawerFooter className="pt-2">
           <DrawerClose asChild>
             <Button variant="outline">Cancel</Button>

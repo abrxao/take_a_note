@@ -1,4 +1,3 @@
-import { TOAST_DURATION } from "./../lib/consts";
 import NoteProps from "@/types/note";
 import axios, { AxiosResponse } from "axios";
 import { create } from "zustand";
@@ -7,6 +6,9 @@ type UserData = {
   userTags: string[];
   isNotesFetching: boolean;
   setUserTags: (update: string[]) => void;
+  filteredTags: string[];
+  clearFilter: () => void;
+  setFilteredTags: (update: string) => void;
   userNotes: NoteProps[];
   fetchUserNotes: () => void;
   removeNote: (note: NoteProps) => void;
@@ -14,14 +16,30 @@ type UserData = {
   noteToEdit: NoteProps | undefined;
   lastRemovedNotes: NoteProps[] | undefined;
   addNoteOnStore: (update: NoteProps) => void;
+  editNoteOnStore: (update: NoteProps) => void;
   togglePinned: (note: NoteProps) => void;
 };
 
 const useUserDataState = create<UserData>((set, get) => ({
   userTags: [],
+  filteredTags: [],
+  setFilteredTags: (update: string) => {
+    var { filteredTags } = get();
+    if (filteredTags.includes(update)) {
+      set((state) => ({
+        filteredTags: state.filteredTags.filter((tag) => tag != update),
+      }));
+    } else {
+      filteredTags.push(update);
+      set((state) => ({
+        filteredTags: filteredTags,
+      }));
+    }
+  },
   setUserTags: (update: string[]) => {
     set(() => ({ userTags: update }));
   },
+  clearFilter: () => set((state) => ({ filteredTags: [] })),
   noteToEdit: undefined,
   isNotesFetching: true,
   userNotes: [],
@@ -60,6 +78,23 @@ const useUserDataState = create<UserData>((set, get) => ({
     }
     set(() => ({ userNotes: [...userNotes, newNote] }));
   },
+  editNoteOnStore: async (update: NoteProps) => {
+    await axios.put(`http://localhost:4000/notes/${update.id}`, update);
+    var { userTags, userNotes } = get();
+    userNotes.forEach((elem, index) => {
+      if (elem.id == update.id) {
+        if (update.tags?.length) {
+          const newTags = update.tags.filter((tag) => !userTags.includes(tag));
+          userNotes[index] = update;
+          set(() => ({
+            userNotes: [...userNotes],
+            userTags: [...userTags, ...newTags],
+          }));
+        }
+        set(() => ({ userNotes: userNotes }));
+      }
+    });
+  },
   removeNote: async (noteToRemove: NoteProps) => {
     const { lastRemovedNotes } = get();
     await axios.delete(`http://localhost:4000/notes/${noteToRemove.id}`);
@@ -96,9 +131,10 @@ const useUserDataState = create<UserData>((set, get) => ({
     notes.forEach(async (userNote, index) => {
       if (userNote.id == note.id) {
         notes[index] = { ...note, favorite: !notes[index].favorite };
+        console.log(notes[index]);
         await axios.put(`http://localhost:4000/notes/${note.id}`, {
           ...note,
-          favorite: !notes[index].favorite,
+          favorite: notes[index].favorite,
         });
         set((state) => ({ userNotes: notes }));
       }
