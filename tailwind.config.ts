@@ -28,8 +28,16 @@ const config = {
           to: { height: "0" },
         },
         "note-card-show": {
-          from: { transform: "scale(40%)", opacity: "0.5" },
-          to: { transform: "scale(100%)", opacity: "1" },
+          from: {
+            transform: "scaleX(40%)",
+            opacity: "0.5",
+            gridTemplateColunms: "0fr",
+          },
+          to: {
+            transform: "scaleX(100%)",
+            opacity: "1",
+            gridTemplateColunms: "1fr",
+          },
         },
       },
 

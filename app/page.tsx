@@ -2,8 +2,8 @@ import ModeToggleButton from "@/components/ModeToggleButton";
 import Container from "@/components/Container";
 import UserNotesSection from "@/sections/UserNotesSection";
 import { Metadata } from "next";
-import NewNoteDrawer from "@/components/NewNoteDrawer";
 import { Toaster } from "@/components/ui/sonner";
+import TagFilter from "@/components/FilterByTag";
 
 export const metadata: Metadata = {
   title: "Take a note",
@@ -15,16 +15,17 @@ export default function Home() {
     <>
       <header>
         <Container className="border-b border-zinc-300 dark:border-zinc-600 flex justify-between w-full">
-          <h1 className="text-2xl font-bold">Take a note</h1>
-
-          <ModeToggleButton />
+          <h1 className="text-2xl font-bold" translate="no">
+            Take a note
+          </h1>
+          <div className="flex gap-2">
+            <TagFilter />
+            <ModeToggleButton />
+          </div>
         </Container>
       </header>
-      <Container>
+      <Container className="py-0 lg:py-0">
         <main className="min-h-screen">
-          <div className="my-4">
-            <NewNoteDrawer />
-          </div>
           <UserNotesSection />
         </main>
       </Container>

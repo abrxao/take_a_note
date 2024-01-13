@@ -1,5 +1,5 @@
 "use client";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
 import { Separator } from "../ui/separator";
 import NoteMenu from "./NoteMenu";
 import { CardDescription } from "../ui/card";
@@ -24,8 +24,12 @@ export default function NoteCard({
     favorite,
     tags,
   };
+
   return (
-    <div className="dark:bg-zinc-800 min-w-56 max-w-xs animate-note-card-show duration-400 dark:border-zinc-700 dark:hover:bg-zinc-900 border border-zinc-300 px-4 py-2 rounded-lg shrink">
+    <div
+      data-isopen={""}
+      className="dark:bg-zinc-800 max-w-xs animate-note-card-show duration-400 dark:border-zinc-700 dark:hover:bg-zinc-900 border border-zinc-300 px-4 py-2 rounded-lg grid"
+    >
       <h4 className="font-bold">{title}</h4>
       <Separator className="my-2" />
       <div className="flex items-center space-x-2 overflow-hidden">
@@ -34,12 +38,12 @@ export default function NoteCard({
         </p>
       </div>
       {tags && <TagsArea tags={tags} className="mt-2" />}
-      <CardDescription className="dark:hover:text-zinc-500 hover:text-zinc-900">
+      <CardDescription className="text-xs mt-3 dark:hover:text-zinc-500 hover:text-zinc-900">
         {lastEditDate
           ? `Edited ${moment(lastEditDate).calendar().toLocaleLowerCase()}`
           : `Created ${moment(createDate).calendar().toLocaleLowerCase()}`}
       </CardDescription>
-      <div className="flex justify-between items-center mt-4 gap1-1">
+      <div className="flex justify-end w-full">
         <NoteMenu note={note} />
       </div>
     </div>
