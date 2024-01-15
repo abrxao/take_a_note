@@ -8,13 +8,14 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "../ui/textarea";
 import { useState } from "react";
-import TagsArea from "./TagsArea";
+import TagsArea from "../Tag";
 import AddTagsInput from "./AddTagsInput";
 import useUserDataState from "@/stores/userDataStore";
 import { AlertTriangle, X } from "lucide-react";
 import NoteProps from "@/types/note";
 import useNoteDrawerState from "@/stores/noteModalStore";
 import { toast } from "sonner";
+import Tag from "../Tag";
 
 const createNoteSchema = z.object({
   title: z.string().min(1, "Input a title for you note"),
@@ -116,10 +117,10 @@ export default function ProfileForm({
         inputOnChange={(e) =>
           setCurrentTag({ value: e.target.value, error: "" })
         }
-        clickOnTagAction={(e) => {
+        clickOnTagAction={(tag) => {
           var aux = tags;
           /* @ts-ignore */
-          aux.push(e.target.value);
+          aux.push(tag);
           setTags(aux);
           setCurrentTag({
             value: "",
@@ -143,15 +144,29 @@ export default function ProfileForm({
           }
         }}
       />
-      <TagsArea
-        tags={tags}
-        Icon={<X size={14} />}
-        clickAction={(e) => {
-          /* @ts-ignore */
-          const aux = tags.filter((tag) => tag != e.target.value);
-          setTags(aux);
-        }}
-      />
+      {
+        <ul className={"flex flex-wrap items-start space-x-2"}>
+          {tags.map((elem) => {
+            return (
+              <li key={elem}>
+                <Tag
+                  type="button"
+                  value={elem}
+                  aria-label="remove tag"
+                  clickAction={() => {
+                    // @ts-ignore
+                    const aux = tags.filter((tag) => tag != elem);
+                    setTags(aux);
+                  }}
+                >
+                  {elem}
+                  <X size={14} />
+                </Tag>
+              </li>
+            );
+          })}
+        </ul>
+      }
       <Button>Save changes</Button>
     </form>
   );

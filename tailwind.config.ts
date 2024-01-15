@@ -18,6 +18,13 @@ const config = {
       },
     },
     extend: {
+      transitionProperty: {
+        "grid-rows": "grid-template-rows",
+      },
+      gridTemplateRows: {
+        "0fr": "0fr",
+        auto: "auto",
+      },
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -29,14 +36,15 @@ const config = {
         },
         "note-card-show": {
           from: {
-            transform: "scaleX(40%)",
             opacity: "0.5",
-            gridTemplateColunms: "0fr",
+            maxWidth: "0rem",
+            maxHeight: "0%",
+            transform: "scale(0.4)",
           },
           to: {
-            transform: "scaleX(100%)",
             opacity: "1",
-            gridTemplateColunms: "1fr",
+            maxHeight: "auto",
+            transform: "scale(1)",
           },
         },
       },
@@ -44,7 +52,7 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "note-card-show": "note-card-show 0.3s ease-out",
+        "note-card-show": "note-card-show 0.2s ease-out",
       },
     },
   },

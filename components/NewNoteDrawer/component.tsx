@@ -2,25 +2,15 @@
 import * as React from "react";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { PlusCircledIcon } from "@radix-ui/react-icons";
+import { PlusIcon } from "@radix-ui/react-icons";
 import useNoteDrawerState from "@/stores/noteModalStore";
 import FormNote from "../FormNote";
 
@@ -33,11 +23,11 @@ export default function NewNoteDrawer_() {
     return (
       <Dialog open={isDrawerNoteOpen} onOpenChange={setIsDrawerNoteOpen}>
         <DialogTrigger onClick={() => clearEditNote()} asChild>
-          <Button variant="secondary" onClick={() => {}}>
-            New note <PlusCircledIcon className="ml-1" />
+          <Button onClick={() => {}}>
+            New note <PlusIcon className="ml-1" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+        <DialogContent className="sm:max-w-md">
           <FormNote />
         </DialogContent>
       </Dialog>
@@ -47,8 +37,8 @@ export default function NewNoteDrawer_() {
   return (
     <Drawer open={isDrawerNoteOpen} onOpenChange={setIsDrawerNoteOpen}>
       <DrawerTrigger asChild>
-        <Button variant="secondary" size="sm">
-          New note <PlusCircledIcon className="ml-1" />
+        <Button size="sm">
+          New note <PlusIcon className="ml-1" />
         </Button>
       </DrawerTrigger>
       <DrawerContent>

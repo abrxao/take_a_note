@@ -4,7 +4,7 @@ import { Separator } from "../ui/separator";
 import NoteMenu from "./NoteMenu";
 import { CardDescription } from "../ui/card";
 import NoteProps from "@/types/note";
-import TagsArea from "../FormNote/TagsArea";
+import Tag from "../Tag";
 import moment from "moment";
 export default function NoteCard({
   title,
@@ -28,7 +28,7 @@ export default function NoteCard({
   return (
     <div
       data-isopen={""}
-      className="dark:bg-zinc-800 max-w-xs animate-note-card-show duration-400 dark:border-zinc-700 dark:hover:bg-zinc-900 border border-zinc-300 px-4 py-2 rounded-lg grid"
+      className="dark:bg-zinc-800 animate-note-card-show max-w-sm duration-400 dark:border-zinc-700 dark:hover:bg-zinc-900 border border-zinc-300 px-4 py-2 rounded-lg grid duration-1000 overflow-hidden"
     >
       <h4 className="font-bold">{title}</h4>
       <Separator className="my-2" />
@@ -37,13 +37,25 @@ export default function NoteCard({
           {description}
         </p>
       </div>
-      {tags && <TagsArea tags={tags} className="mt-2" />}
+      {tags && (
+        <ul className={"flex flex-wrap items-start space-x-2 mt-2"}>
+          {tags.map((elem) => {
+            return (
+              <li key={elem}>
+                <Tag type="button" value={elem} aria-label="remove tag">
+                  {elem}
+                </Tag>
+              </li>
+            );
+          })}
+        </ul>
+      )}
       <CardDescription className="text-xs mt-3 dark:hover:text-zinc-500 hover:text-zinc-900">
         {lastEditDate
           ? `Edited ${moment(lastEditDate).calendar().toLocaleLowerCase()}`
           : `Created ${moment(createDate).calendar().toLocaleLowerCase()}`}
       </CardDescription>
-      <div className="flex justify-end w-full">
+      <div className="flex justify-end w-full mt-2">
         <NoteMenu note={note} />
       </div>
     </div>

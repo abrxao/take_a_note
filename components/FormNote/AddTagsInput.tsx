@@ -3,15 +3,16 @@ import { ChangeEventHandler, MouseEventHandler, ReactNode } from "react";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
-import { Plus } from "lucide-react";
-import TagsArea from "./TagsArea";
+import { Plus, PlusIcon } from "lucide-react";
+import TagsArea from "../Tag";
+import Tag from "../Tag";
 
 interface AddTagsInput {
   tags: string[];
   addButtonAction?: MouseEventHandler<HTMLButtonElement>;
   inputOnChange?: ChangeEventHandler<HTMLInputElement>;
   inputValue?: string | number | readonly string[];
-  clickOnTagAction?: MouseEventHandler<HTMLButtonElement>;
+  clickOnTagAction?: (tag: string) => void;
 }
 
 export default function AddTagsInput({
@@ -29,11 +30,23 @@ export default function AddTagsInput({
         <p className="text-xs text-zinc-600 mt-1 dark:text-zinc-300">
           Your tags
         </p>
-        <TagsArea
-          tags={tags}
-          Icon={<Plus size={14} />}
-          clickAction={clickOnTagAction}
-        />
+        <ul className={"flex flex-wrap items-start space-x-2"}>
+          {tags.map((elem) => {
+            return (
+              <li key={elem}>
+                <Tag
+                  type="button"
+                  value={elem}
+                  aria-label="remove tag"
+                  clickAction={() => clickOnTagAction && clickOnTagAction(elem)}
+                >
+                  {elem}
+                  <PlusIcon size={14} />
+                </Tag>
+              </li>
+            );
+          })}
+        </ul>
       </div>
       <div className="relative">
         <Input

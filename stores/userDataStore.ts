@@ -7,6 +7,7 @@ type UserData = {
   isNotesFetching: boolean;
   setUserTags: (update: string[]) => void;
   filteredTags: string[];
+  removeTagFromFilter: (update: string) => void;
   clearFilter: () => void;
   setFilteredTags: (update: string) => void;
   userNotes: NoteProps[];
@@ -23,6 +24,13 @@ type UserData = {
 const useUserDataState = create<UserData>((set, get) => ({
   userTags: [],
   filteredTags: [],
+  removeTagFromFilter: (update: string) => {
+    const { filteredTags } = get();
+    const index = filteredTags.indexOf(update);
+    filteredTags.splice(index, 1);
+
+    set((state) => ({ filteredTags: filteredTags }));
+  },
   setFilteredTags: (update: string) => {
     var { filteredTags } = get();
     if (filteredTags.includes(update)) {
@@ -131,7 +139,6 @@ const useUserDataState = create<UserData>((set, get) => ({
     notes.forEach(async (userNote, index) => {
       if (userNote.id == note.id) {
         notes[index] = { ...note, favorite: !notes[index].favorite };
-        console.log(notes[index]);
         await axios.put(`http://localhost:4000/notes/${note.id}`, {
           ...note,
           favorite: notes[index].favorite,

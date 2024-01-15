@@ -1,12 +1,14 @@
 "use client";
-import TagsArea from "@/components/FormNote/TagsArea";
+import TagsArea from "@/components/Tag";
 import NewNoteDrawer from "@/components/NewNoteDrawer";
 import NoteCard from "@/components/NoteCard";
 import NoteCardSkeleton from "@/components/NoteCard/NoteCardSkeleton";
 import { Button } from "@/components/ui/button";
 import useUserDataState from "@/stores/userDataStore";
+import { DrawingPinFilledIcon } from "@radix-ui/react-icons";
 import { X } from "lucide-react";
 import { useEffect } from "react";
+import Tag from "@/components/Tag";
 
 export default function UserNotesSection() {
   const {
@@ -15,6 +17,7 @@ export default function UserNotesSection() {
     filteredTags,
     clearFilter,
     isNotesFetching,
+    removeTagFromFilter,
   } = useUserDataState();
   const hasFavorite = userNotes.some((currentNote) => currentNote.favorite);
   const hasNormalNote = userNotes.some((currentNote) => !currentNote.favorite);
@@ -38,7 +41,27 @@ export default function UserNotesSection() {
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-1 py-3">
                     <p>Selected tags:</p>
-                    <TagsArea tags={filteredTags} />
+                    {
+                      <ul className={"flex flex-wrap items-start space-x-2"}>
+                        {filteredTags.map((elem) => {
+                          return (
+                            <li key={elem}>
+                              <Tag
+                                type="button"
+                                value={elem}
+                                aria-label="remove tag"
+                                clickAction={() => {
+                                  removeTagFromFilter(elem);
+                                }}
+                              >
+                                {elem}
+                                <X size={14} />
+                              </Tag>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    }
                   </div>
                   <Button
                     variant={"destructive"}
@@ -69,7 +92,9 @@ export default function UserNotesSection() {
               <>
                 {hasFavorite && (
                   <div>
-                    <p>favorites</p>
+                    <h2 className="inline-flex items-center font-bold my-2">
+                      Favorites notes <DrawingPinFilledIcon className="ml-1" />
+                    </h2>
                     <div className="flex flex-wrap gap-2 items-start">
                       {userNotes.map((elem) => {
                         if (elem.favorite) {
@@ -85,7 +110,9 @@ export default function UserNotesSection() {
                   </div>
                 )}
                 <div className="mt-4">
-                  {hasFavorite && hasNormalNote && <p>others notes</p>}
+                  {hasFavorite && hasNormalNote && (
+                    <h2 className="font-bold my-2">Others notes</h2>
+                  )}
                   <div className="flex flex-wrap gap-2 items-start">
                     {userNotes.map((elem) => {
                       if (!elem.favorite) {
