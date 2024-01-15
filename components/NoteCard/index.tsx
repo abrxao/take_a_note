@@ -28,7 +28,7 @@ export default function NoteCard({
   return (
     <div
       data-isopen={""}
-      className="dark:bg-zinc-800 animate-note-card-show max-w-sm duration-400 dark:border-zinc-700 dark:hover:bg-zinc-900 border border-zinc-300 px-4 py-2 rounded-lg grid duration-1000 overflow-hidden"
+      className="dark:bg-zinc-800 animate-note-card-show max-w-xs duration-400 dark:border-zinc-700 dark:hover:bg-zinc-900 border border-zinc-300 px-4 py-2 rounded-lg overflow-hidden"
     >
       <h4 className="font-bold">{title}</h4>
       <Separator className="my-2" />

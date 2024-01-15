@@ -38,12 +38,12 @@ const config = {
           from: {
             opacity: "0.5",
             maxWidth: "0rem",
-            maxHeight: "0%",
+            maxHeight: "0px",
             transform: "scale(0.4)",
           },
           to: {
             opacity: "1",
-            maxHeight: "auto",
+            maxHeight: "400px",
             transform: "scale(1)",
           },
         },
@@ -52,7 +52,7 @@ const config = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "note-card-show": "note-card-show 0.2s ease-out",
+        "note-card-show": "note-card-show 0.4s ease-out",
       },
     },
   },
