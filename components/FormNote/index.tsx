@@ -8,7 +8,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Textarea } from "../ui/textarea";
 import { useState } from "react";
-import TagsArea from "../Tag";
 import AddTagsInput from "./AddTagsInput";
 import useUserDataState from "@/stores/userDataStore";
 import { AlertTriangle, X } from "lucide-react";
