@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "server": "json-server notes.json --port 4000",
-    "test": "jest",
+    "test": "jest --detectOpenHandles",
     "clear_jest": "jest --clearCache"
   },
   "dependencies": {

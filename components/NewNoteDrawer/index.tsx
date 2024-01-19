@@ -10,5 +10,9 @@ export default function NewNoteDrawer() {
     return null;
   }
 
-  return <NewNoteDrawer_ />;
+  return (
+    <>
+      <NewNoteDrawer_ />;
+    </>
+  );
 }

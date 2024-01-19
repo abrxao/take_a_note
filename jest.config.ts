@@ -1,6 +1,5 @@
-const nextJest = require("next/jest");
-const tsconfig = require("./tsconfig.json");
-const moduleNameMapper = require("tsconfig-paths-jest")(tsconfig);
+import nextJest from "next/jest.js";
+import type { Config } from "jest";
 
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
@@ -8,11 +7,12 @@ const createJestConfig = nextJest({
 });
 
 // Add any custom config to be passed to Jest
-const customJestConfig = {
+const customJestConfig: Config = {
   setupFilesAfterEnv: ["<rootDir>/.jest/setup.ts"],
 
   moduleDirectories: ["node_modules", "<rootDir>/"],
-  testEnvironment: "jest-environment-jsdom",
+  transformIgnorePatterns: ["/node_modules/@uidotdev/usehooks/index.js"],
+  testEnvironment: "jsdom",
   bail: true,
   logHeapUsage: true,
   testTimeout: 120000,
@@ -20,8 +20,7 @@ const customJestConfig = {
   collectCoverage: true,
 
   coverageProvider: "v8",
-  collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}"],
-  moduleNameMapper,
+  collectCoverageFrom: ["components/**/*.{js,jsx,ts,tsx}"],
 };
 
-module.exports = createJestConfig(customJestConfig);
+export default createJestConfig(customJestConfig);

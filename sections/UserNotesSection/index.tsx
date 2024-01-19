@@ -1,5 +1,4 @@
 "use client";
-import TagsArea from "@/components/Tag";
 import NewNoteDrawer from "@/components/NewNoteDrawer";
 import NoteCard from "@/components/NoteCard";
 import NoteCardSkeleton from "@/components/NoteCard/NoteCardSkeleton";
