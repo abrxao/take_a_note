@@ -32,7 +32,7 @@ export default function TagFilter() {
         {userTags.map((elem, index) => {
           return (
             <DropdownMenuCheckboxItem
-              key={elem + index}
+              key={elem}
               checked={filteredTags.includes(elem)}
               onCheckedChange={() => setFilteredTags(elem)}
             >

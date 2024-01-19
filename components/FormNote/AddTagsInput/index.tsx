@@ -1,11 +1,10 @@
 "use client";
 import { ChangeEventHandler, MouseEventHandler, ReactNode } from "react";
-import { Label } from "../ui/label";
-import { Input } from "../ui/input";
-import { Button } from "../ui/button";
+import { Label } from "../../ui/label";
+import { Input } from "../../ui/input";
+import { Button } from "../../ui/button";
 import { Plus, PlusIcon } from "lucide-react";
-import TagsArea from "../Tag";
-import Tag from "../Tag";
+import Tag from "../../Tag";
 
 interface AddTagsInput {
   tags: string[];
@@ -51,6 +50,7 @@ export default function AddTagsInput({
       <div className="relative">
         <Input
           id="addTags"
+          data-testid="input-add-tags"
           placeholder="New Tag"
           onChange={inputOnChange}
           type="text"
@@ -59,6 +59,7 @@ export default function AddTagsInput({
         />
         <Button
           type="button"
+          data-testid="input-add-tags-button"
           className="absolute right-0 top-0"
           onClick={addButtonAction}
         >

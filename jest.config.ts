@@ -8,19 +8,23 @@ const createJestConfig = nextJest({
 
 // Add any custom config to be passed to Jest
 const customJestConfig: Config = {
+  preset: "ts-jest",
   setupFilesAfterEnv: ["<rootDir>/.jest/setup.ts"],
 
   moduleDirectories: ["node_modules", "<rootDir>/"],
-  transformIgnorePatterns: ["/node_modules/@uidotdev/usehooks/index.js"],
   testEnvironment: "jsdom",
   bail: true,
   logHeapUsage: true,
   testTimeout: 120000,
   forceExit: true,
   collectCoverage: true,
-
+  transform: {
+    "^.+\\.(ts|tsx)?$": "ts-jest",
+    "^.+\\.(js|jsx)$": "babel-jest",
+  },
   coverageProvider: "v8",
   collectCoverageFrom: ["components/**/*.{js,jsx,ts,tsx}"],
+  coveragePathIgnorePatterns: ["components/ui"],
 };
 
 export default createJestConfig(customJestConfig);

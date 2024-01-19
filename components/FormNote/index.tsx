@@ -23,9 +23,7 @@ const createNoteSchema = z.object({
 
 type CreateLoginData = z.infer<typeof createNoteSchema>;
 
-export default function ProfileForm({
-  className,
-}: React.ComponentProps<"form">) {
+export default function FormNote({ className }: React.ComponentProps<"form">) {
   const {
     register,
     handleSubmit,

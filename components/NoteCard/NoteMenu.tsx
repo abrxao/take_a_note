@@ -5,9 +5,30 @@ import useUserDataState from "@/stores/userDataStore";
 import NoteProps from "@/types/note";
 import { DrawingPinFilledIcon, DrawingPinIcon } from "@radix-ui/react-icons";
 import useNoteDrawerState from "@/stores/noteModalStore";
+import { ButtonHTMLAttributes } from "react";
+import { twMerge } from "tailwind-merge";
 
 interface NoteMenuProps {
   note: NoteProps;
+}
+
+function NoteMenuButton({
+  children,
+  className,
+  ...props
+}: ButtonHTMLAttributes<HTMLButtonElement>) {
+  return (
+    <button
+      className={twMerge(
+        "p-1 active:scale-8 dark:bg-zinc-700 hover:bg-zinc-200 dark:hover:bg-slate-400 rounded-md",
+        className
+      )}
+      type="button"
+      {...props}
+    >
+      {children}
+    </button>
+  );
 }
 
 export default function NoteMenu({ note }: NoteMenuProps) {
@@ -15,10 +36,10 @@ export default function NoteMenu({ note }: NoteMenuProps) {
   const { setEditNote, setIsDrawerNoteOpen } = useNoteDrawerState();
   return (
     <div className="flex gap-1">
-      <button
-        className="p-1 active:scale-8 dark:bg-zinc-700 hover:bg-zinc-200  dark:hover:bg-slate-400 rounded-md hover:text-red-400"
+      <NoteMenuButton
+        className="hover:text-red-400"
         aria-label="Delete note"
-        type="button"
+        data-testid="note-menu-button-delete"
         onClick={() => {
           removeNote(note);
           toast("Note has been deleted", {
@@ -31,18 +52,25 @@ export default function NoteMenu({ note }: NoteMenuProps) {
         }}
       >
         <X size={14} />
-      </button>
-      <button
+      </NoteMenuButton>
+      <NoteMenuButton
         data-value={note.favorite ? "checked" : ""}
-        className="p-1 active:scale-8 dark:bg-zinc-700 hover:bg-zinc-200 dark:hover:bg-slate-400 dark:data-[value=checked]:bg-emerald-600 data-[value=checked]:bg-emerald-400 text-sm  rounded-md hover:text-slate-500"
+        className=" dark:data-[value=checked]:bg-emerald-600 data-[value=checked]:bg-emerald-400"
         aria-label="Toggle favorite"
-        type="button"
-        onClick={() => togglePinned(note)}
+        data-testid="note-menu-button-favorite"
+        onClick={() => {
+          togglePinned(note);
+        }}
       >
-        {note?.favorite ? <DrawingPinFilledIcon /> : <DrawingPinIcon />}
-      </button>
-      <button
-        className="p-1 active:scale-8 dark:bg-zinc-700 rounded-md dark:hover:text-blue-300 hover:text-blue-600"
+        {note?.favorite ? (
+          <DrawingPinFilledIcon data-testid="favorite-icon" />
+        ) : (
+          <DrawingPinIcon data-testid="to-favorite-icon" />
+        )}
+      </NoteMenuButton>
+      <NoteMenuButton
+        data-testid="note-menu-button-edit"
+        className=" hover:text-blue-600"
         aria-label="Edit note"
         type="button"
         onClick={() => {
@@ -51,7 +79,7 @@ export default function NoteMenu({ note }: NoteMenuProps) {
         }}
       >
         <Edit2 size={14} />
-      </button>
+      </NoteMenuButton>
     </div>
   );
 }

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Note card tests render skeleton 1`] = `
+<div
+  class="dark:bg-zinc-800 w-72 max-w-sm dark:border-zinc-700 dark:hover:bg-zinc-900 border border-zinc-300 px-4 py-2 rounded-lg"
+  data-testid="note-card-skeleton"
+>
+  <div
+    class="animate-pulse rounded-md bg-slate-100 dark:bg-slate-800 w-32 h-5"
+  />
+  <div
+    aria-orientation="horizontal"
+    class="my-2"
+    role="separator"
+  />
+  <div
+    class="flex flex-col items-center gap-1"
+  >
+    <div
+      class="animate-pulse rounded-md bg-slate-100 dark:bg-slate-800 w-full h-5"
+    />
+    <div
+      class="animate-pulse rounded-md bg-slate-100 dark:bg-slate-800 w-full h-5"
+    />
+  </div>
+  <div
+    class="flex justify-between items-center mt-4"
+  >
+    <div
+      class="animate-pulse rounded-md bg-slate-100 dark:bg-slate-800 w-full h-5"
+    />
+    <div
+      class="animate-pulse rounded-md bg-slate-100 dark:bg-slate-800 w-full h-5"
+    />
+  </div>
+</div>
+`;
