@@ -8,7 +8,7 @@ const createJestConfig = nextJest({
 
 // Add any custom config to be passed to Jest
 const customJestConfig: Config = {
-  preset: "ts-jest",
+  preset: "ts-jest/presets/js-with-ts",
   setupFilesAfterEnv: ["<rootDir>/.jest/setup.ts"],
 
   moduleDirectories: ["node_modules", "<rootDir>/"],
@@ -17,6 +17,7 @@ const customJestConfig: Config = {
   logHeapUsage: true,
   testTimeout: 120000,
   forceExit: true,
+  transformIgnorePatterns: [],
   collectCoverage: true,
   transform: {
     "^.+\\.(ts|tsx)?$": "ts-jest",
