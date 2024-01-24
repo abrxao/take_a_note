@@ -24,25 +24,31 @@ export default function NoteCard({
     favorite,
     tags,
   };
+  const titleRef = useRef(null);
 
   return (
-    <div
+    <article
+      ref={titleRef}
+      tabIndex={0}
       data-isopen={""}
       className="dark:bg-zinc-800 animate-note-card-show max-w-xs duration-400 dark:border-zinc-700 dark:hover:bg-zinc-900 border border-zinc-300 px-4 py-2 rounded-lg overflow-hidden"
     >
-      <h4 className="font-bold">{title}</h4>
+      <p className="font-bold" aria-label={title}>
+        {title}
+      </p>
       <Separator className="my-2" />
-      <div className="flex items-center space-x-2 overflow-hidden">
-        <p className="text-sm font-medium leading-none text-clip">
-          {description}
-        </p>
-      </div>
+      <p
+        className="text-sm font-medium leading-none text-clip"
+        aria-label={description}
+      >
+        {description}
+      </p>
       {tags && (
         <ul className={"flex flex-wrap items-start space-x-2 mt-2"}>
           {tags.map((elem) => {
             return (
               <li key={elem}>
-                <Tag type="button" value={elem} aria-label="remove tag">
+                <Tag type="button" value={elem} aria-label={elem}>
                   {elem}
                 </Tag>
               </li>
@@ -58,6 +64,6 @@ export default function NoteCard({
       <div className="flex justify-end w-full mt-2">
         <NoteMenu note={note} />
       </div>
-    </div>
+    </article>
   );
 }
