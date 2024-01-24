@@ -21,11 +21,13 @@ describe("Note card tests", () => {
     const title = screen.getByText(note.title);
     expect(title).toBeInTheDocument();
   });
+
   test("Render Note with tags, create and last edited date", async () => {
     render(<NoteCard {...editedNote} />);
     const title = screen.getByText(editedNote.title);
     expect(title).toBeInTheDocument();
   });
+
   test("Simulation click on favorite", async () => {
     render(<NoteCard {...editedNote} />);
     const favoriteButton = screen.getByTestId("note-menu-button-favorite");
@@ -35,6 +37,17 @@ describe("Note card tests", () => {
     const iconFavorite = await screen.findByTestId("favorite-icon");
     expect(iconFavorite).toBeInTheDocument();
   });
+
+  test("Simulation click on delete", async () => {
+    render(<NoteCard {...editedNote} />);
+    const deleteButton = screen.getByTestId("note-menu-button-delete");
+    await act(async () => {
+      fireEvent.click(deleteButton);
+    });
+    const iconFavorite = await screen.findByTestId("favorite-icon");
+    expect(iconFavorite).toBeInTheDocument();
+  });
+
   test("render skeleton", async () => {
     render(<NoteCardSkeleton />);
     const noteCardSkeleton = screen.getByTestId("note-card-skeleton");

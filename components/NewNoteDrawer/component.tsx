@@ -1,5 +1,4 @@
 "use client";
-import { useMediaQuery } from "@uidotdev/usehooks";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import {
@@ -12,6 +11,7 @@ import {
 import { PlusIcon } from "@radix-ui/react-icons";
 import useNoteDrawerState from "@/stores/noteModalStore";
 import FormNote from "../FormNote";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 export default function NewNoteDrawer_() {
   const { isDrawerNoteOpen, setIsDrawerNoteOpen, clearEditNote } =
@@ -22,7 +22,7 @@ export default function NewNoteDrawer_() {
     return (
       <Dialog open={isDrawerNoteOpen} onOpenChange={setIsDrawerNoteOpen}>
         <DialogTrigger onClick={() => clearEditNote()} asChild>
-          <Button onClick={() => {}}>
+          <Button onClick={() => {}} data-testid="newnotedrawer-button-desktop">
             New note <PlusIcon className="ml-1" />
           </Button>
         </DialogTrigger>
@@ -36,7 +36,7 @@ export default function NewNoteDrawer_() {
   return (
     <Drawer open={isDrawerNoteOpen} onOpenChange={setIsDrawerNoteOpen}>
       <DrawerTrigger asChild>
-        <Button size="sm">
+        <Button size="sm" data-testid="newnotedrawer-button-mobile">
           New note <PlusIcon className="ml-1" />
         </Button>
       </DrawerTrigger>

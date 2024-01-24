@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`simulation input 1`] = `
+exports[`send note forms tests simulation input 1`] = `
 <div>
   <form
     class="grid items-start gap-4"
@@ -56,7 +56,41 @@ exports[`simulation input 1`] = `
         </p>
         <ul
           class="flex flex-wrap items-start space-x-2"
-        />
+        >
+          <li>
+            <button
+              aria-label="remove tag"
+              class="hover:opacity-85"
+              type="button"
+              value="work"
+            >
+              <div
+                class="rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-slate-950 focus:ring-offset-2 dark:border-slate-800 dark:focus:ring-slate-300 border-transparent bg-slate-900 text-slate-50 hover:bg-slate-900/80 dark:bg-slate-50 dark:text-slate-900 dark:hover:bg-slate-50/80 flex gap-1 items-center pointer-events-none"
+              >
+                work
+                <svg
+                  class="lucide lucide-plus "
+                  fill="none"
+                  height="14"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                  width="14"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5 12h14"
+                  />
+                  <path
+                    d="M12 5v14"
+                  />
+                </svg>
+              </div>
+            </button>
+          </li>
+        </ul>
       </div>
       <div
         class="relative"

@@ -17,8 +17,8 @@ import useUserDataState from "@/stores/userDataStore";
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 
 export default function TagFilter() {
-  const { userTags, filteredTags, setFilteredTags } = useUserDataState();
-
+  const { userTags, filteredTags, userNotes, setFilteredTags } =
+    useUserDataState();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -29,7 +29,7 @@ export default function TagFilter() {
       <DropdownMenuContent className="w-56">
         <DropdownMenuLabel>Select tags</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {userTags.map((elem, index) => {
+        {userTags.map((elem) => {
           return (
             <DropdownMenuCheckboxItem
               key={elem}

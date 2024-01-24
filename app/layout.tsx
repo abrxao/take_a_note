@@ -1,9 +1,7 @@
 "use client";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/ThemeProvider";
-import { QueryClientProvider } from "react-query";
-import { queryClient } from "@/lib/queryClient";
+import { ThemeProvider } from "@/components/ui/ThemeProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 

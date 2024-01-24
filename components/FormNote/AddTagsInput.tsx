@@ -1,10 +1,10 @@
 "use client";
 import { ChangeEventHandler, MouseEventHandler, ReactNode } from "react";
-import { Label } from "../../ui/label";
-import { Input } from "../../ui/input";
-import { Button } from "../../ui/button";
+import { Label } from "../ui/label";
+import { Input } from "../ui/input";
+import { Button } from "../ui/button";
 import { Plus, PlusIcon } from "lucide-react";
-import Tag from "../../Tag";
+import Tag from "../Tag";
 
 interface AddTagsInput {
   tags: string[];

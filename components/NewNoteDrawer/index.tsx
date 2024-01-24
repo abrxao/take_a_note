@@ -1,7 +1,7 @@
 "use client";
 
-import { useIsClient } from "@uidotdev/usehooks";
 import NewNoteDrawer_ from "./component";
+import { useIsClient } from "@/hooks/useIsClient";
 
 export default function NewNoteDrawer() {
   const isClient = useIsClient();
@@ -9,6 +9,5 @@ export default function NewNoteDrawer() {
   if (isClient === false) {
     return null;
   }
-
   return <NewNoteDrawer_ />;
 }

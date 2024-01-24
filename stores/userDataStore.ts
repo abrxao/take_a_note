@@ -2,7 +2,7 @@ import NoteProps from "@/types/note";
 import axios, { AxiosResponse } from "axios";
 import { create } from "zustand";
 
-type UserData = {
+export type UserData = {
   addNoteOnStore: (update: NoteProps) => void;
   clearFilter: () => void;
   editNoteOnStore: (update: NoteProps) => void;
@@ -21,9 +21,9 @@ type UserData = {
   userTags: string[];
 };
 
-const useUserDataState = create<UserData>((set, get) => {
+export const useUserDataState = create<UserData>((set, get) => {
   return {
-    userTags: [],
+    userTags: ["work"],
     isNotesFetching: true,
     filteredTags: [],
     noteToEdit: undefined,

@@ -10,11 +10,14 @@ describe("Tag tests", () => {
     expect(button).toBeInTheDocument();
   });
 
-  test("toggles theme on button click", async () => {
+  test("Tag test click", async () => {
+    const fnMock = jest.fn();
     const tagText = "hello world";
-    render(<Tag>{tagText}</Tag>);
+    render(<Tag clickAction={fnMock}>{tagText}</Tag>);
     const tag = screen.getByText(tagText);
-
-    expect(tag).toBeInTheDocument();
+    await act(async () => {
+      fireEvent.click(tag);
+    });
+    expect(fnMock).toHaveBeenCalled();
   });
 });
